@@ -30,8 +30,8 @@ My work so for was to
   $$
   \underbrace{\text{New}Q(s,a)}_{\scriptstyle\text{New Q-Value}}=Q(s,a)+\mkern-34mu\underset{\text{New Q-Value}}{\underset{\Bigl|}{\alpha}}\mkern-30mu[\underbrace{R(s,a)}_{\scriptstyle\text{Reward}}+\mkern-30mu\underset{\text{Discount rate}}{\underset{\Biggl|}{\gamma}}*\mkern-75mu\overbrace{\max Q'(s',a')}^{\scriptstyle\substack{\text{Maximum predicted reward, given} \\ \text{new state and all possible actions}}}\mkern-45mu-Q(s,a)]
   $$
-  3. **Action-Value** method Q-Networks (and DQNs) and [my implementations of them (GitHub)]() on the [MountainCar-v0 standard `gym`environment](https://gym.openai.com/envs/MountainCar-v0/)
-  4. **Policy-Gradient** method REINFORCE algorithm and [my implementation of them (GitHub)]() on the [CartPole-v0 standard `gym` environment ](https://gym.openai.com/envs/CartPole-v1/)
+  3. **Action-Value** method Q-Networks (and DQNs) and [my implementations of them (GitHub)](https://github.com/Plutonium-239/deeprl-in-sgbd) on the [MountainCar-v0 standard `gym`environment](https://gym.openai.com/envs/MountainCar-v0/)
+  4. **Policy-Gradient** method REINFORCE algorithm and [my implementation of them (GitHub)](https://github.com/Plutonium-239/deeprl-in-sgbd) on the [CartPole-v0 standard `gym` environment ](https://gym.openai.com/envs/CartPole-v1/)
   
 - In addition to this, I have started work on the project part - I have started to implement the environment used in Paper 1, which will take some time to complete and will need to be changed as required (if the training implementation requires something differently) or because of optimizations in general. 
   *Note that this is the main part of the implementation describing the problem statement and every single constraint for proper results, and the training/agent part would not be very different from normal. However, I will have to change the agent slightly too to be compliant with the environment.*
