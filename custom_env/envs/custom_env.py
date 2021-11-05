@@ -1,15 +1,16 @@
 import gym
 from gym import spaces
 import numpy as np
+import utils
 
 class CustomEnv(gym.Env):
 	"""docstring for CustomEnv"""
-	def __init__(self):
+	def __init__(self, path=None, products=None, distr=None):
 		super(CustomEnv, self).__init__()
 		self.i = 1 # no of component tanks
 		self.n = 1 # no of blenders
 		self.j = 1 # no of product tanks
-		self.p = 1 # no of products
+		self.p = len(products) # no of products
 		self.o = 1 # no of orders
 
 		self.scheduling_horizon = 192 # (hours) defined schedling horizon as used in the paper [1]
@@ -97,11 +98,18 @@ class CustomEnv(gym.Env):
 			'Od': self.Od
 		})
 
-		self.amt = 500 # (only for development stages) assume a fixed amount is transferred
+		# no longer assuming amount to be fixed, amount varies with every order
+		self.amt = 100 # (only for development stages) assume a fixed amount is transferred
 		self.action_memory = []
+		self.order = self._recover_order(path, products, distr)
 
 	def reset(self):
 		pass
+
+	def _recover_order(self, path, products, distr):
+		if path:
+			return utils.read_order(path)
+		return utils.generate_order(self.k, products=products, distr=distr)
 
 	def _reward(self):
 		comp_costs = (self.C*self.b.sum(axis=1)).sum()
@@ -135,7 +143,7 @@ class CustomEnv(gym.Env):
 		self.last_action = self.action_memory[-1] if len(self.action_memory) > 0 else None
 		self.action = action
 		self.action_memory.append(action)
-		self._take_action(action)		
+		self._take_action(action)
 		reward = self._reward()
 		state, episode_over = self._get_state() # tbd
 		return state, reward, episode_over, {}
