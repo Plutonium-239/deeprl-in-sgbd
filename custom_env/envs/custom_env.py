@@ -99,7 +99,7 @@ class CustomEnv(gym.Env):
 		})
 
 		# no longer assuming amount to be fixed, amount varies with every order
-		self.amt = 100 # (only for development stages) assume a fixed amount is transferred
+		# self.amt = 100 # (only for development stages) assume a fixed amount is transferred
 		self.action_memory = []
 		self.order = self._recover_order(path, products, distr)
 
@@ -151,11 +151,11 @@ class CustomEnv(gym.Env):
 	def _take_action(self, action):
 		p_n, i_n, n_j, j_o = action # splitting action into 4 one-hot np arrays
 		# i_n = i_n.reshape(self.i, self.n) # so that i_n[i] refers to comp tank i and i_n[:,n] refers to blender n
-		self.b = self.amt*i_n
-		self.cc -= self.amt*i_n.sum(axis=1)
-		self.cb = self.b.sum(axis=0)
-		self.x = self.amt*n_j
-		self.cpt += self.x.sum(axis=0)
+		# self.b = i_n
+		self.cc -= i_n.sum(axis=1)
+		self.cb += i_n.sum(axis=0)
+		self.x = n_j
+		self.cpt += n_j.sum(axis=0)
 		# self.Od +=
 		# 
 		# 
